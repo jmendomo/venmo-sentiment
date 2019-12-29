@@ -1,8 +1,12 @@
+import statistics as stt
+import matplotlib.pyplot as plt
+import emoji
 
-
+#ordeing numbers in list in desceding order
 def sortSecond(val):
     return val[1]
 
+#finding variance of a list
 def find_s(lists):
     sum_list = []
     x_mean = stt.mean(lists)
@@ -12,6 +16,7 @@ def find_s(lists):
         sum_list.append(var_1)
     return sum(sum_list)/len(lists)
 
+#finding t-value between lists (multiple t-test)
 def run_t_tests(lists):
     t_stats = {}
     for i in range(len(lists)):
@@ -24,10 +29,9 @@ def run_t_tests(lists):
                     t = (stt.mean(x)-stt.mean(y))/math.sqrt(find_s(x)/len(x)+find_s(y)/len(y))
                     p = 1 - stats.t.cdf(t, df =df)
                     t_stats['{}-{}'.format(i,j)] = [t,p]
-            
     return t_stats
 
-
+#plotting multiple time conditions against each other
 def compare_plot(lists, name, x_labels, y_label):
     if len(lists)>10: plt.rcParams.update({'figure.figsize':(10,10), 'figure.dpi':100})
     else: plt.rcParams.update({'figure.figsize':(10,4), 'figure.dpi':100})
@@ -42,12 +46,11 @@ def compare_plot(lists, name, x_labels, y_label):
     plt.savefig('{}.png'.format(name))
     plt.show()
     
-
+#sentiment bars based on time condition
 def plot_bar(list_object, title, name):
     pos = []
     neg = []
     neu = []
-    
     for i in range(len(list_object)):
         if list_object[i] > -1 and list_object[i] <= -.1:
             neg.append(list_object[i])
@@ -69,12 +72,7 @@ def plot_bar(list_object, title, name):
     plt.savefig('{}.png'.format(name))
     plt.show()
     
-    
-def list_has(obj, lists):
-    for i in range(len(lists)):
-        if obj in lists[i]:
-            return score_dict[lists[i]]
-        
+#assign emoji score based on emoji name        
 def assign_score(emojis):
     x = emoji.demojize(emojis).replace('_',' ').replace(':','').replace(' Medium Skin Tone', '').replace(' Dark Skin Tone', '').replace(' Light Skin Tone', '').replace(' Medium-Dark Skin Tone', '').replace(' Medium-Light Skin Tone', '').title()
     
@@ -92,7 +90,7 @@ def assign_score(emojis):
         
     return score
 
-
+#finding frequent 1-itemset
 def freq_set(min_conf, data, freq_item):
     item_set = {}
     y = list(freq_item.keys())
