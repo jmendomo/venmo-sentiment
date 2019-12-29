@@ -20,3 +20,8 @@ for i in range(len(weekDays)):
     exec("{} = {}".format(weekDays[i].upper(),i+36))
 for i in range(24):
     exec("H_{} = {}".format(i,i+44))
+july = []
+august = []
+october = []
+y_19 = []
+y_18 = []
